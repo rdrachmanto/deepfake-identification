@@ -1,3 +1,4 @@
 **.ipynb_checkpoints/
 src/samples/*.mp4
 src/genframes/*.jpg
+**.virtual_documents/
