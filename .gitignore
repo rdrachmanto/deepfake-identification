@@ -4,3 +4,4 @@ src/genframes/*.jpg
 **.virtual_documents/
 **__pycache__
 data/
+**logs/

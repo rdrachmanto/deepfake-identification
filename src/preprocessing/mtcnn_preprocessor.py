@@ -51,7 +51,7 @@ class MTCNNPreprocessor(BasePreprocessor):
 
                         pil_image, face_boxes = self._detect_face(frame=frame)  # type: ignore[reportUnknownVariableType]
                         if len(face_boxes) == 0:  # type: ignore[reportUnknownArgumentType]
-                            logging.error(f"No face detected on {self.dataset_path}/{c}/{f} frame {i}")
+                            logging.error(f"MTCNN no face detected on {self.dataset_path}/{c}/{f} frame {i}")
                             continue
 
                         face = self._crop_frame_to_face(pil_image, face_boxes[0])  # type: ignore[reportUnknownArgumentType]

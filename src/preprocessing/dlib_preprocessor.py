@@ -53,7 +53,7 @@ class DlibPreprocessor(BasePreprocessor):
 
                         faces = self._detect_face(frame)
                         if not len(faces) > 0:
-                            logging.error(f"No face detected on {self.dataset_path}/{c}/{f} frame {i}")
+                            logging.error(f"Dlib no face detected on {self.dataset_path}/{c}/{f} frame {i}")
                             continue
                         
                         face_frame = self._crop_frame_to_face(frame, faces[0])
