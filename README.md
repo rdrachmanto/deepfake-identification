@@ -27,7 +27,8 @@ jupyter-lab  # run jupyterlab
 
 ## Structure
 
-All codes (python, notebook) are available inside `src/`. 
+All codes are available inside `src/`. Notebooks are available in `notebooks/`
 
 ## License
+
 This python script and its notebooks are licensed under MIT License.
