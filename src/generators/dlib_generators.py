@@ -5,12 +5,12 @@ import logging
 import cv2
 import dlib  # type: ignore[reportMissingTypeStubs]
 
-from src.preprocessing.detectors import DlibDetector
-import src.preprocessing.utils as utils
+from src.generators.detectors import DlibDetector
+import src.generators.utils as utils
 import src.utils as coreutils
 
 
-class DlibSamplePreprocessor(DlibDetector):
+class DlibSampleGenerator(DlibDetector):
     def __init__(self, dataset_path: str, classes: list[str]) -> None:
         self.dataset_path = dataset_path
         self.classes = classes
@@ -48,7 +48,7 @@ class DlibSamplePreprocessor(DlibDetector):
             print(f"Extracting {self.dataset_path}/{c} to {save_to}/{c} done in {round((e_time - s_time).total_seconds(), 2)}s")
 
 
-class DlibListPreprocessor(DlibDetector):
+class DlibListGenerator(DlibDetector):
     def __init__(self, video_counts: dict[str, int]) -> None:
         self.video_counts = video_counts
         super().__init__()

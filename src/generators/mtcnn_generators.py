@@ -3,14 +3,13 @@ import logging
 
 from facenet_pytorch import MTCNN  # type: ignore[reportMissingTypeStubs]
 import cv2
-import matplotlib.pyplot as plt
 
-from src.preprocessing.detectors import MTCNNDetector
-import src.preprocessing.utils as utils
+from src.generators.detectors import MTCNNDetector
+import src.generators.utils as utils
 import src.utils as coreutils
 
 
-class MTCNNSamplePreprocessor(MTCNNDetector):
+class MTCNNSampleGenerator(MTCNNDetector):
     def __init__(self, dataset_path: str, classes: list[str]) -> None:
         self.dataset_path = dataset_path
         self.classes = classes
@@ -51,7 +50,7 @@ class MTCNNSamplePreprocessor(MTCNNDetector):
                     capture.release()
 
 
-class MTCNNListPreprocessor(MTCNNDetector):
+class MTCNNListGenerator(MTCNNDetector):
     def __init__(self, video_counts: dict[str, int]) -> None:
         self.video_counts = video_counts
         super().__init__()
