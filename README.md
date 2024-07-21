@@ -16,7 +16,7 @@ Steps:
 conda create -n torchit python --yes
 conda activate torchit
 conda install -c conda-forge dlib --yes
-pip install torch torchvision facenet-pytorch opencv-python 
+pip install facenet-pytorch opencv-python tensorflow
 ```
 Install and run `jupyterlab` (optionally) through pip as well with:
 

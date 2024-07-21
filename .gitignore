@@ -5,3 +5,4 @@ src/genframes/*.jpg
 **__pycache__
 data/
 **logs/
+**Scratchpad.ipynb
