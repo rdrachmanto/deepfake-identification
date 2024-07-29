@@ -4,7 +4,7 @@ import logging
 from facenet_pytorch import MTCNN  # type: ignore[reportMissingTypeStubs]
 import cv2
 
-from src.preprocessing.extractors.detectors import MTCNNDetector
+from src.detectors.mtcnn import MTCNNDetector
 import src.preprocessing.extractors.utils as utils
 import src.utils as coreutils
 
