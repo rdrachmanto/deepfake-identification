@@ -4,9 +4,3 @@ import logging
 from datetime import datetime
 
 sys.path.append('../')
-logging.basicConfig(
-    filename=f'./logs/{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.log',
-    filemode='a',
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    level=logging.ERROR
-)
