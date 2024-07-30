@@ -1,5 +1,4 @@
 import os
-import json
 
 
 def create_directory(parent: str, children: list[str] | None) -> None:
@@ -17,19 +16,3 @@ def create_directory(parent: str, children: list[str] | None) -> None:
     for c in children:
         if not os.path.exists(f"{parent}/{c}"):
             os.makedirs(f"{parent}/{c}")
-
-
-def preprocess_fail_stat(path: str, preprocessor: str, dataset: str):
-    """
-    Generate json object from log files about frame extraction failure, 
-    containing file information, failed frame number and counts 
-    Args:
-    - `path (str)`: Path to the log file to examine
-    - `preprocessor (str)`: Filter the preprocessor (MTCNN or Dlib)
-    - `dataset (str)`: Filter the dataset 
-    """
-    with open(path) as f:
-        lines = f.read().splitlines()
-        for l in lines:
-            print(l)
-
