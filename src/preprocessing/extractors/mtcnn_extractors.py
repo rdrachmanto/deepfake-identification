@@ -1,7 +1,6 @@
 import os
 import logging
 
-from facenet_pytorch import MTCNN  # type: ignore[reportMissingTypeStubs]
 import cv2
 
 from src.detectors.mtcnn import MTCNNDetector
@@ -79,7 +78,7 @@ class MTCNNSeqExtractor(MTCNNDetector):
 
                 c = vf.split("/")[-2]
                 f = vf.split("/")[-1]
-                save_path = f"{save_to}/{c}/{f}_frame_{i}.jpg" 
+                save_path = f"{save_to}/{c}/{f}_frame_{i}.jpg"
                 if os.path.exists(save_path):
                     continue
 

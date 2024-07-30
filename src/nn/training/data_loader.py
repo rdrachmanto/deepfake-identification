@@ -8,18 +8,20 @@ def _split_dataset(dataset: ImageFolder, train_size: float, val_size: float):  #
     val_count = int(val_size * len(dataset))
     test_count = len(dataset) - train_count - val_count
 
-    return random_split(dataset, [train_count, val_count, test_count])  # type: ignore[reportUnknownVariableType] 
+    return random_split(dataset, [train_count, val_count, test_count])  # type: ignore[reportUnknownVariableType]
 
 
-def load_data(path: str, transforms: transforms.Compose, train_size: float, val_size: float, batch_size: int):  # type: ignore[reportUnknownVariableType]
+def load_data(
+    path: str,
+    transforms: transforms.Compose,
+    train_size: float,
+    val_size: float,
+    batch_size: int,
+):  # type: ignore[reportUnknownVariableType]
     if not train_size + (2 * val_size) == 1.0:
         raise Exception("Splits must add up to 1.0")
 
-
-    dataset = ImageFolder(
-        root=path,
-        transform=transforms
-    )
+    dataset = ImageFolder(root=path, transform=transforms)
 
     train_split, val_split, test_split = _split_dataset(dataset, train_size, val_size)  # type: ignore[reportUnknownVariableType]
 

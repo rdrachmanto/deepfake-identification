@@ -3,7 +3,6 @@ import os
 import timm
 import torch
 from torch import nn, optim
-from torchvision import transforms
 
 import src.nn.config as config
 from src.nn.training import iters
@@ -11,7 +10,7 @@ from src.nn.training import iters
 
 class XceptionNetImprovement1:
     def __init__(self) -> None:
-       pass 
+        pass
 
     def _create_model_struct(self):
         model = timm.create_model("hf_hub:timm/xception41.tf_in1k", pretrained=True)
@@ -32,7 +31,7 @@ class XceptionNetImprovement1:
             nn.ReLU(),
             nn.Dropout(0.5),
             nn.BatchNorm1d(256),
-            nn.Linear(256, 2)
+            nn.Linear(256, 2),
         )
 
         loss_fn = nn.CrossEntropyLoss()
