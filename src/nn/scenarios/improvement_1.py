@@ -1,0 +1,55 @@
+import os
+
+import timm
+import torch
+from torch import nn, optim
+from torchvision import transforms
+
+import src.nn.config as config
+from src.nn.training import iters
+
+
+class XceptionNetImprovement1:
+    def __init__(self) -> None:
+       pass 
+
+    def _create_model_struct(self):
+        model = timm.create_model("hf_hub:timm/xception41.tf_in1k", pretrained=True)
+
+        for param in model.parameters():
+            param.requires_grad = False
+
+        model.head.fc = nn.Sequential(
+            nn.Linear(model.head.fc.in_features, 1024),
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.BatchNorm1d(1024),
+            nn.Linear(1024, 512),
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.BatchNorm1d(512),
+            nn.Linear(512, 256),
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.BatchNorm1d(256),
+            nn.Linear(256, 2)
+        )
+
+        loss_fn = nn.CrossEntropyLoss()
+        optimizer = optim.Adam(model.parameters(), lr=config.LEARNING_RATE)
+
+        return model, loss_fn, optimizer
+
+    def train(self, train_loader, test_loader, epochs: int, save_to: str):
+        model, loss_fn, optimizer = self._create_model_struct()
+        model.to(config.DEVICE)
+
+        for t in range(epochs):
+            iters.train(train_loader, model, loss_fn, optimizer, t, epochs)
+
+        iters.test(test_loader, model, loss_fn)
+
+        if not os.path.exists(save_to):
+            os.makedirs(save_to)
+
+        torch.save(model.state_dict(), f"{save_to}/model.pth")
