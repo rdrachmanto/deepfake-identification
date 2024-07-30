@@ -8,7 +8,7 @@ import src.nn.config as config
 from src.nn.training import iters
 
 
-class XceptionNetBaseline:
+class XceptionNetImprovement2:
     def __init__(self) -> None:
         pass
 
@@ -18,7 +18,10 @@ class XceptionNetBaseline:
         for param in model.parameters():
             param.requires_grad = True
 
-        model.head.fc = nn.Linear(model.head.fc.in_features, 2)
+        model.head.fc = nn.Sequential(
+            nn.Linear(model.head.fc.in_features, 2),
+            nn.Softmax(1)
+        )
 
         loss_fn = nn.CrossEntropyLoss()
         optimizer = optim.Adam(model.parameters(), lr=config.LEARNING_RATE)
@@ -43,6 +46,7 @@ class XceptionNetBaseline:
             nn.Dropout(0.5),
             nn.BatchNorm1d(256),
             nn.Linear(256, 2),
+            nn.Softmax(1)
         )
 
         loss_fn = nn.CrossEntropyLoss()

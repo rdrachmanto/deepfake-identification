@@ -18,7 +18,10 @@ class XceptionNetBaseline:
         for param in model.parameters():
             param.requires_grad = True
 
-        model.head.fc = nn.Linear(model.head.fc.in_features, 2)
+        model.head.fc = nn.Sequential(
+            nn.Linear(model.head.fc.in_features, 2),
+            nn.Softmax(1)
+        )
 
         loss_fn = nn.CrossEntropyLoss()
         optimizer = optim.Adam(model.parameters(), lr=config.LEARNING_RATE)
@@ -29,7 +32,10 @@ class XceptionNetBaseline:
         for param in model.parameters():
             param.requires_grad = False
 
-        model.head.fc = nn.Linear(model.head.fc.in_features, 2)
+        model.head.fc = nn.Sequential(
+            nn.Linear(model.head.fc.in_features, 2),
+            nn.Softmax(1)
+        )
 
         loss_fn = nn.CrossEntropyLoss()
         optimizer = optim.Adam(model.parameters(), lr=config.LEARNING_RATE)

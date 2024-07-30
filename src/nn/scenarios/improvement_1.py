@@ -32,6 +32,7 @@ class XceptionNetImprovement1:
             nn.Dropout(0.5),
             nn.BatchNorm1d(256),
             nn.Linear(256, 2),
+            nn.Softmax(1)
         )
 
         loss_fn = nn.CrossEntropyLoss()
