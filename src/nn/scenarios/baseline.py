@@ -19,7 +19,6 @@ class XceptionNetBaseline:
             param.requires_grad = True
 
         model.head.fc = nn.Linear(model.head.fc.in_features, 2)
-        )
 
         loss_fn = nn.CrossEntropyLoss()
         optimizer = optim.Adam(model.parameters(), lr=config.LEARNING_RATE)
