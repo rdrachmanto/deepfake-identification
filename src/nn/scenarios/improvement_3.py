@@ -30,7 +30,6 @@ class XceptionNetImprovement3:
             nn.Linear(512, 128),
             nn.ReLU(),
             nn.Linear(128, 2),
-            nn.Softmax(1),
         )
 
         loss_fn = nn.CrossEntropyLoss()

@@ -20,7 +20,6 @@ class XceptionNetImprovement2:
 
         model.head.fc = nn.Sequential(
             nn.Linear(model.head.fc.in_features, 2),
-            nn.Softmax(1)
         )
 
         loss_fn = nn.CrossEntropyLoss()
@@ -46,7 +45,6 @@ class XceptionNetImprovement2:
             nn.Dropout(0.5),
             nn.BatchNorm1d(256),
             nn.Linear(256, 2),
-            nn.Softmax(1)
         )
 
         loss_fn = nn.CrossEntropyLoss()
