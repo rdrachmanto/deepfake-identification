@@ -1,33 +1,25 @@
 ## Deepfake Identification
 
-Identify deepfakes through original and modified `XceptionNet` models. Feed face images to the network and receive predictions whether the face is original/real, or the result of deepfake techniques. Built upon `tensorflow` and `opencv-python`.
+Identify deepfakes through original and modified `XceptionNet` models. Feed face images to the network and receive predictions whether the face is real, or a result of deepfake techniques. Built upon `pytorch` and `opencv-python`.
 
 ## Getting Started
 
 It is recommended to use `conda` for this project. Below are the script to replicate the project environment.
 
 Steps:
-1. Create conda environment. below, the env is named `torchit`.
+1. Create conda environment. below, the env is named `torchit`, this project is done on python 3.10.
 2. Activate the conda env
-3. Install `dlib` through `conda-forge` channel. **DO NOT** use pip for `dlib` as it requires numerous cublas, cudnn and cuda-related libraries.
-4. Install other packages through pip
+3. Install packages through pip
 
 ```bash
-conda create -n torchit python --yes
+conda create -n torchit python=3.10 -y
 conda activate torchit
-conda install -c conda-forge dlib --yes
-pip install facenet-pytorch opencv-python tensorflow
+pip install -r requirements.txt
 ```
-Install and run `jupyterlab` (optionally) through pip as well with:
-
-```bash
-pip install jupyterlab jupyterlab-lsp  # Install jupyterlab and LSP (language server protocol) to enable documentation, and error checkings
-jupyter-lab  # run jupyterlab
-```
-
 ## Structure
 
-All codes are available inside `src/`. Notebooks are available in `notebooks/`
+All codes are available inside `src/`. Notebooks are available in `notebooks/`.
+Scripts in the notebooks expects the data, both raw and preprocessed, to be inside the `data/raw` and `data/preprocessed` directory, respectively. Feel free to change accordingly. 
 
 ## License
 
