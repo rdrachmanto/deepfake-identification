@@ -1,7 +1,6 @@
 import os
 
 import timm
-from timm import layers
 import torch
 from torch import nn, optim
 
@@ -14,14 +13,15 @@ class XceptionNetImprovement3:
         pass
 
     def _create_model_struct(self):
-        model = timm.create_model("hf_hub:timm/xception41.tf_in1k", pretrained=True)
+        model = timm.create_model(
+            "hf_hub:timm/xception41.tf_in1k",
+            pretrained=True,
+            global_pool="max",
+        )
 
         for param in model.parameters():
             param.requires_grad = True
 
-        model.head.global_pool = layers.SelectAdaptivePool2d(
-            pool_type="max", flatten=nn.Flatten(start_dim=1, end_dim=-1)
-        )
         model.head.fc = nn.Sequential(
             nn.Linear(model.head.fc.in_features, 512),
             nn.ReLU(),
