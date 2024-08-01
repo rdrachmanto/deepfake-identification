@@ -49,4 +49,4 @@ class XceptionNetImprovement3:
         if not os.path.exists(save_to):
             os.makedirs(save_to)
 
-        torch.save(model.state_dict(), f"{save_to}/model.pth")
+        torch.save(model, f"{save_to}/model.pth")
