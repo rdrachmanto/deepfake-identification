@@ -39,14 +39,29 @@ class XceptionNetImprovement1:
 
         return model, loss_fn, optimizer
 
-    def train(self, train_loader, test_loader, epochs: int, save_to: str):
+    def train(
+        self,
+        train_loader,
+        test_loader,
+        epochs: int,
+        save_to: str,
+        silent,
+    ):
         model, loss_fn, optimizer = self._create_model_struct()
         model.to(config.DEVICE)
 
         for t in range(epochs):
-            iters.train(train_loader, model, loss_fn, optimizer, t, epochs)
+            iters.train(
+                train_loader,
+                model,
+                loss_fn,
+                optimizer,
+                t,
+                epochs,
+                silent,
+            )
 
-        iters.test(test_loader, model, loss_fn)
+        iters.test(test_loader, model, loss_fn, silent)
 
         if not os.path.exists(save_to):
             os.makedirs(save_to)

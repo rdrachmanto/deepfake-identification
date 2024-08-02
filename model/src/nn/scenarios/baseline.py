@@ -37,12 +37,27 @@ class XceptionNetBaseline:
         return model, loss_fn, optimizer
 
     def pretrain(
-        self, model, loss_fn, optimizer, train_loader, test_loader, epochs: int
+        self,
+        model,
+        loss_fn,
+        optimizer,
+        train_loader,
+        test_loader,
+        epochs: int,
+        silent,
     ):
         for t in range(epochs):
-            iters.train(train_loader, model, loss_fn, optimizer, t, epochs)
+            iters.train(
+                train_loader,
+                model,
+                loss_fn,
+                optimizer,
+                t,
+                epochs,
+                silent=silent,
+            )
 
-        iters.test(test_loader, model, loss_fn)
+        iters.test(test_loader, model, loss_fn, silent)
 
         return model
 
@@ -55,11 +70,20 @@ class XceptionNetBaseline:
         test_loader,
         epochs: int,
         save_to: str,
+        silent,
     ):
         for t in range(epochs):
-            iters.train(train_loader, model, loss_fn, optimizer, t, epochs)
+            iters.train(
+                train_loader,
+                model,
+                loss_fn,
+                optimizer,
+                t,
+                epochs,
+                silent=silent,
+            )
 
-        iters.test(test_loader, model, loss_fn)
+        iters.test(test_loader, model, loss_fn, silent)
 
         if not os.path.exists(save_to):
             os.makedirs(save_to)
@@ -75,6 +99,7 @@ class XceptionNetBaseline:
         fine_tuning_test_loader,
         fine_tuning_epochs: int,
         save_to: str,
+        silent: bool = False,
     ):
         model, loss_fn, optimizer = self._create_pretrained_model()
         model.to(config.DEVICE)
@@ -86,6 +111,7 @@ class XceptionNetBaseline:
             train_loader=pretrain_train_loader,
             test_loader=pretrain_test_loader,
             epochs=pretraining_epochs,
+            silent=silent
         )
 
         pretrained_model, loss_fn, optimizer = self._create_model_to_finetune(
@@ -101,4 +127,5 @@ class XceptionNetBaseline:
             test_loader=fine_tuning_test_loader,
             epochs=fine_tuning_epochs,
             save_to=save_to,
+            silent=silent
         )
