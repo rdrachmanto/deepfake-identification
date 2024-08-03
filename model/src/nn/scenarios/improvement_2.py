@@ -125,7 +125,7 @@ class XceptionNetImprovement2:
             train_loader=pretrain_train_loader,
             test_loader=pretrain_test_loader,
             epochs=pretraining_epochs,
-            silent
+            silent=silent,
         )
 
         pretrained_model, loss_fn, optimizer = self._create_model_to_finetune(
@@ -141,5 +141,5 @@ class XceptionNetImprovement2:
             test_loader=fine_tuning_test_loader,
             epochs=fine_tuning_epochs,
             save_to=save_to,
-            silent
+            silent=silent
         )
