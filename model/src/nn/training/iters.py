@@ -1,16 +1,19 @@
 import torch
+from torch.utils.data import DataLoader
+from torch import nn
+
 from tqdm import tqdm
 
-import src.nn.config as config
+import model.src.nn.config as config
 
 
 def train(
-    dataloader,
-    model,
-    loss_fn,
-    optimizer,
-    epoch,
-    num_epochs,
+    dataloader: DataLoader,
+    model: nn.Module,
+    loss_fn: nn.Module,
+    optimizer: torch.optim.Optimizer,
+    epoch: int,
+    num_epochs: int,
     silent: bool = False,
 ):
     model.train()
@@ -25,11 +28,11 @@ def train(
     )
     running_loss = 0.0
 
-    for batch, (X, y) in enumerate(bar):
-        X, y = X.to(config.DEVICE), y.to(config.DEVICE)
+    for batch, (x, y) in enumerate(bar):
+        x, y = x.to(config.DEVICE), y.to(config.DEVICE)
 
         # Compute prediction error
-        pred = model(X)  # This is calling the forward() function in the model
+        pred = model(x)  # This is calling the forward() function in the model
         loss = loss_fn(pred, y)
 
         # Backpropagation
@@ -45,7 +48,7 @@ def train(
         bar.set_postfix(loss="{:.3f}".format(current_loss))
 
 
-def test(dataloader, model, loss_fn, silent: bool = False):
+def test(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module, silent: bool = False):
     size = len(dataloader.dataset)
     num_batches = len(dataloader)
     model.eval()
@@ -60,9 +63,9 @@ def test(dataloader, model, loss_fn, silent: bool = False):
     )
 
     with torch.no_grad():
-        for batch, (X, y) in enumerate(bar):
-            X, y = X.to(config.DEVICE), y.to(config.DEVICE)
-            pred = model(X)
+        for batch, (x, y) in enumerate(bar):
+            x, y = x.to(config.DEVICE), y.to(config.DEVICE)
+            pred = model(x)
             test_loss += loss_fn(pred, y).item()
             correct += (pred.argmax(1) == y).type(torch.float).sum().item()
 

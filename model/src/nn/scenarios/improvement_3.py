@@ -3,9 +3,10 @@ import os
 import timm
 import torch
 from torch import nn, optim
+from torch.utils.data import DataLoader
 
-import src.nn.config as config
-from src.nn.training import iters
+import model.src.nn.config as config
+from model.src.nn.training import iters
 
 
 class XceptionNetImprovement3:
@@ -39,11 +40,11 @@ class XceptionNetImprovement3:
 
     def train(
         self,
-        train_loader,
-        test_loader,
+        train_loader: DataLoader,
+        test_loader: DataLoader,
         epochs: int,
         save_to: str,
-        silent,
+        silent: bool,
     ):
         model, loss_fn, optimizer = self._create_model_struct()
         model.to(config.DEVICE)

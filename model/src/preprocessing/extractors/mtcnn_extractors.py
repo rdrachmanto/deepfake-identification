@@ -3,9 +3,9 @@ import logging
 
 import cv2
 
-from src.detectors.mtcnn import MTCNNDetector
-import src.preprocessing.extractors.utils as utils
-import src.utils as coreutils
+from model.src.detectors.mtcnn import MTCNNDetector
+import model.src.preprocessing.extractors.utils as utils
+import model.src.utils as coreutils
 
 
 class MTCNNSampleExtractor(MTCNNDetector):
@@ -36,14 +36,14 @@ class MTCNNSampleExtractor(MTCNNDetector):
                         _ = capture.set(cv2.CAP_PROP_POS_FRAMES, i)
                         _, frame = capture.read()
 
-                        pil_image, face_boxes = self.detect_face(frame=frame)  # type: ignore[reportUnknownVariableType]
-                        if len(face_boxes) == 0:  # type: ignore[reportUnknownArgumentType]
+                        pil_image, face_boxes = self.detect_face(frame=frame)
+                        if len(face_boxes) == 0:
                             logging.error(
                                 f"MTCNN no face detected on {self.dataset_path}/{c}/{f} frame {i}"
                             )
                             continue
 
-                        face = self.crop_frame_to_face(pil_image, face_boxes[0])  # type: ignore[reportUnknownArgumentType]
+                        face = self.crop_frame_to_face(pil_image, face_boxes[0])
                         face.save(f"{save_to}/{c}/{f}_frame_{i}.jpg")
 
                     capture.release()
@@ -70,11 +70,11 @@ class MTCNNSeqExtractor(MTCNNDetector):
                 _ = capture.set(cv2.CAP_PROP_POS_FRAMES, i)
                 _, frame = capture.read()
 
-                pil_image, face_boxes = self.detect_face(frame=frame)  # type: ignore[reportUnknownVariableType]
-                if len(face_boxes) == 0:  # type: ignore[reportUnknownArgumentType]
+                pil_image, face_boxes = self.detect_face(frame=frame)
+                if len(face_boxes) == 0:
                     continue
 
-                face = self.crop_frame_to_face(pil_image, face_boxes[0])  # type: ignore[reportUnknownArgumentType]
+                face = self.crop_frame_to_face(pil_image, face_boxes[0])
 
                 c = vf.split("/")[-2]
                 f = vf.split("/")[-1]

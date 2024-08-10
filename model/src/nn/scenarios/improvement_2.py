@@ -3,9 +3,10 @@ import os
 import timm
 import torch
 from torch import nn, optim
+from torch.utils.data import DataLoader
 
-import src.nn.config as config
-from src.nn.training import iters
+import model.src.nn.config as config
+from model.src.nn.training import iters
 
 
 class XceptionNetImprovement2:
@@ -25,7 +26,7 @@ class XceptionNetImprovement2:
 
         return model, loss_fn, optimizer
 
-    def _create_model_to_finetune(self, model):
+    def _create_model_to_finetune(self, model: nn.Module):
         for param in model.parameters():
             param.requires_grad = False
 
@@ -52,13 +53,13 @@ class XceptionNetImprovement2:
 
     def pretrain(
         self,
-        model,
-        loss_fn,
-        optimizer,
-        train_loader,
-        test_loader,
+        model: nn.Module,
+        loss_fn: nn.Module,
+        optimizer: optim.Optimizer,
+        train_loader: DataLoader,
+        test_loader: DataLoader,
         epochs: int,
-        silent,
+        silent: bool,
     ):
         for t in range(epochs):
             iters.train(
@@ -77,11 +78,11 @@ class XceptionNetImprovement2:
 
     def fine_tune(
         self,
-        model,
-        loss_fn,
-        optimizer,
-        train_loader,
-        test_loader,
+        model: nn.Module,
+        loss_fn: nn.Module,
+        optimizer: optim.Optimizer,
+        train_loader: DataLoader,
+        test_loader: DataLoader,
         epochs: int,
         save_to: str,
         silent: bool,
@@ -106,14 +107,14 @@ class XceptionNetImprovement2:
 
     def train(
         self,
-        pretrain_train_loader,
-        pretrain_test_loader,
+        pretrain_train_loader: DataLoader,
+        pretrain_test_loader: DataLoader,
         pretraining_epochs: int,
-        fine_tuning_train_loader,
-        fine_tuning_test_loader,
+        fine_tuning_train_loader: DataLoader,
+        fine_tuning_test_loader: DataLoader,
         fine_tuning_epochs: int,
         save_to: str,
-        silent,
+        silent: bool,
     ):
         model, loss_fn, optimizer = self._create_pretrained_model()
         model.to(config.DEVICE)
