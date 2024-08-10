@@ -3,9 +3,9 @@ import logging
 
 import cv2
 
-from model.src.detectors.mtcnn import MTCNNDetector
-import model.src.preprocessing.extractors.utils as utils
-import model.src.utils as coreutils
+from src.detectors.mtcnn import MTCNNDetector
+import src.preprocessing.extractors.utils as utils
+import src.utils as coreutils
 
 
 class MTCNNSampleExtractor(MTCNNDetector):

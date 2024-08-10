@@ -5,8 +5,8 @@ import torch
 from torch import nn, optim
 from torch.utils.data import DataLoader
 
-import model.src.nn.config as config
-from model.src.nn.training import iters
+import src.nn.config as config
+from src.nn.training import iters
 
 
 class XceptionNetImprovement1:

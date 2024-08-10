@@ -4,7 +4,7 @@ from torch import nn
 
 from tqdm import tqdm
 
-import model.src.nn.config as config
+import src.nn.config as config
 
 
 def train(
